@@ -13,7 +13,6 @@ func Generate(guid string) (string, error) {
 		"guid": guid,
 		"exp":  time.Now().Add(time.Minute).Unix(),
 	})
-
 	return token.SignedString([]byte(os.Getenv("SECRET")))
 }
 
