@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"log"
+	"os"
 	"time"
 
 	"github.com/glebpepega/auth/internal/hashtoken"
@@ -26,7 +27,7 @@ func New() *DB {
 func (d *DB) Connect() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("DBCONN")))
 	if err != nil {
 		log.Fatal(err)
 	}
